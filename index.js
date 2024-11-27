@@ -124,7 +124,7 @@ for (const element of navigationLinks) {
 // Agregando funcionalidad de EmailJS para el formulario de contacto
 
 (function() {
-    emailjs.init("user_YOUR_USER_ID"); // Reemplaza "YOUR_USER_ID" con tu User ID de EmailJS
+    emailjs.init("service_lwd21lg"); // Reemplaza "YOUR_USER_ID" con tu User ID de EmailJS
 })();
 
 form.addEventListener('submit', function(event) {
