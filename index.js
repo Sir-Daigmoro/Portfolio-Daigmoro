@@ -131,7 +131,7 @@ form.addEventListener('submit', function(event) {
     event.preventDefault(); // Evitar el envío del formulario por defecto
 
     // Enviar el formulario usando EmailJS
-    emailjs.sendForm('service_m5ivu47', 'template_YOUR_TEMPLATE_ID', this) // Reemplaza "YOUR_TEMPLATE_ID" con tu ID de plantilla
+    emailjs.sendForm('service_lwd21lg', 'template_YOUR_TEMPLATE_ID', this) // Reemplaza "YOUR_TEMPLATE_ID" con tu ID de plantilla
         .then(function() {
             alert('Mensaje enviado con éxito!');
             form.reset(); // Reiniciar el formulario
