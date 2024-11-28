@@ -217,7 +217,7 @@ article { display: none; }
 
 .sidebar {
     margin-bottom: 15px;
-    max-height: 200px; /* Aumenta esta altura según sea necesario */
+    max-height: 250px; /* Aumenta esta altura según sea necesario */
     overflow: hidden;
     padding: 15px;
     transition: var(--transition2);
@@ -233,19 +233,19 @@ article { display: none; }
 
 .avatar-box {
     background: var(--bg-gradient-onyx);
-    border-radius: 45px;
+    border-radius: 25%;
     padding: 10px;
     display: inline-block;
-    width: 100px; /* Ajusta el ancho según sea necesario */
-    height: 100px; /* Ajusta la altura según sea necesario */
+    width: 200px; /* Ajusta el ancho según sea necesario */
+    height: 200px; /* Ajusta la altura según sea necesario */
     overflow: hidden; /* Asegura que el contenido que exceda se oculte */
 }
 
 .avatar-box .avatar-image {
-    width: 100%;
-    height: 100%; /* Asegura que la imagen ocupe todo el contenedor */
+    width: 97%;
+    height: 97%; /* Asegura que la imagen ocupe todo el contenedor */
     object-fit: cover; /* Mantiene la proporción y recorta si es necesario */
-    border-radius: 10%; /* Bordes redondeados a la imagen */
+    border-radius: 50%; /* Bordes redondeados a la imagen */
     display: block;
 }
 .info-content .name {
