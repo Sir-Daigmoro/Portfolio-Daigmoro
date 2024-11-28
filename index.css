@@ -479,7 +479,7 @@ article { display: none; }
     left: 0;
     transform: translate(12px, -20px);
     background: var(--bg-gradient-onyx);
-    border-radius: 15px;
+    border-radius: 50%;
     box-shadow: var(--shadow1);
     
     /* Controlar el tamaño de la imagen */
