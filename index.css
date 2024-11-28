@@ -483,15 +483,15 @@ article { display: none; }
     box-shadow: var(--shadow1);
     
     /* Controlar el tamaño de la imagen */
-    width: 80px; /* Ajusta el ancho de la caja que contiene la imagen */
-    height: 80px; /* Ajusta la altura de la caja que contiene la imagen */
+    width: 60px; /* Ajusta el ancho de la caja que contiene la imagen */
+    height: 60px; /* Ajusta la altura de la caja que contiene la imagen */
     min-width: 25px; /* Ancho mínimo de la caja */
     min-height: 25px; /* Altura mínima de la caja */
 }
 
 .testimonials-avatar-box img {
-    width: 100%; /* Esto hace que la imagen ocupe todo el espacio disponible dentro de la caja */
-    height: 100%; /* Esto hace que la imagen se ajuste a la caja */
+    width: 97%; /* Esto hace que la imagen ocupe todo el espacio disponible dentro de la caja */
+    height: 97%; /* Esto hace que la imagen se ajuste a la caja */
     border-radius: 50%; /* Asegura que la imagen tenga bordes redondeados (para que se vea como un círculo) */
 }
 
