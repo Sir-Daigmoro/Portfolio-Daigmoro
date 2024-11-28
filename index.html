@@ -978,22 +978,28 @@
                 </section>
 
                 <section class="contact-form">
-                    <h3 class="h3 form-title">Contactame</h3>
-
-                    <form action="#" class="form" data-form>
+                    <h3 class="h3 form-title">Contáctame</h3>
+                
+                    <form id="contact-form" data-form>
                         <div class="input-wrapper">
-                            <input type="text" name="Full name" class="form-input" placeholder="Nombre Completo" required data-form-input>
-                            <input type="email" name="email" class="form-input" placeholder="E-mail" required data-form-input>
+                            <input type="text" name="from_name" class="form-input" placeholder="Nombre Completo" required />
+                            <input type="email" name="from_email" class="form-input" placeholder="E-mail" required />
                         </div>
-
-                        <textarea name="menssage" class="form-input" placeholder="Tú mensaje" required data-form-input=""></textarea>
-
-                        <button class="form-btn" type="submit" disabled data-form-btn>
+                
+                        <textarea name="message" class="form-input" placeholder="Tu mensaje" required></textarea>
+                
+                        <button id="formBtn" class="form-btn" type="submit">
                             <ion-icon name="paper-plane"></ion-icon>
-                            <span>Envíar Mensaje</span>
+                            <span>Enviar Mensaje</span>
                         </button>
                     </form>
                 </section>
+                
+                <script
+                    type="text/javascript"
+                    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+                </script>                
+
             </article>
         </div>
     </main>
