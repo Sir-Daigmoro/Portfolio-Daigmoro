@@ -219,7 +219,7 @@ article { display: none; }
     margin-bottom: 15px;
     max-height: 200px; /* Aumenta esta altura según sea necesario */
     overflow: hidden;
-    padding: 25%;
+    padding: 15px;
     transition: var(--transition2);
 }
 
