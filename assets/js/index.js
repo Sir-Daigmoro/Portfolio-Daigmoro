@@ -31,7 +31,7 @@ const projectDetailFallback = 'Contenido técnico detallado en preparación.';
 
 const projectCatalog = {
     'ocr-cloud': {
-        title: 'Plataforma OCR Cloud',
+        title: 'Plataforma OCR Document IA',
         kicker: 'Profesionales · Cloud / Backend',
         summary: 'Contenido técnico en preparación.',
         description: 'Contenido técnico en preparación.',
@@ -39,7 +39,7 @@ const projectCatalog = {
         technologies: [],
         challenges: [],
         detailText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.',
-        githubUrl: 'https://github.com/Sir-Daigmoro/teams-certificates-bot-gemini',
+        githubUrl: '',
         canvaUrl: '',
         demoUrl: '',
         videoUrl: '',
@@ -50,7 +50,7 @@ const projectCatalog = {
         placeholderLabel: 'OCR Cloud'
     },
     'erp-cloud': {
-        title: 'Integración ERP + Servicios Cloud',
+        title: 'Integración sistema ERP + Servicios GCP',
         kicker: 'Profesionales · Cloud / Backend',
         summary: 'Contenido técnico en preparación.',
         description: 'Contenido técnico en preparación.',
@@ -105,7 +105,7 @@ const projectCatalog = {
         placeholderLabel: 'Gemini + Teams'
     },
     battlev2: {
-        title: 'BattleV2 – Sistema de Combate RPG',
+        title: 'Sistema de Combate para videojuegos RPG - Tactical Systems',
         kicker: 'Unity',
         summary: 'Contenido técnico en preparación.',
         description: 'Contenido técnico en preparación.',
@@ -121,10 +121,10 @@ const projectCatalog = {
         contentPath: 'assets/content/projects/battlev2',
         placeholderClass: 'project-placeholder--combat',
         placeholderIcon: 'shield-half-outline',
-        placeholderLabel: 'BattleV2'
+        placeholderLabel: 'Tactical Systems'
     },
     'exploration-mode': {
-        title: 'ExplorationMode – Exploración Hexagonal',
+        title: 'Sistema de movimiento por tiles hexagonales - Hex Grid Systems',
         kicker: 'Unity',
         summary: 'Contenido técnico en preparación.',
         description: 'Contenido técnico en preparación.',
@@ -140,7 +140,7 @@ const projectCatalog = {
         contentPath: 'assets/content/projects/exploration-mode',
         placeholderClass: 'project-placeholder--exploration',
         placeholderIcon: 'map-outline',
-        placeholderLabel: 'Hex Grid'
+        placeholderLabel: 'Hex Grid Systems'
     },
     'chemlab-ar': {
         title: 'ChemLab AR',
@@ -158,57 +158,6 @@ const projectCatalog = {
         docsUrl: '',
         image: 'assets/images/ChemLab-AR.jpeg',
         imageAlt: 'Vista previa del proyecto ChemLab AR'
-    },
-    'pin-travel': {
-        title: 'Pin Travel',
-        kicker: 'Académicos · Web / Móvil',
-        summary: 'Contenido técnico en preparación.',
-        description: 'Contenido técnico en preparación.',
-        role: 'Espacio reservado para definir responsabilidades, alcance y contribución principal.',
-        technologies: [],
-        challenges: [],
-        detailText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.',
-        githubUrl: '',
-        canvaUrl: '',
-        demoUrl: '',
-        videoUrl: '',
-        docsUrl: '',
-        image: 'assets/images/Pintravel logo.png',
-        imageAlt: 'Vista previa del proyecto Pin Travel'
-    },
-    'green-flow': {
-        title: 'Green Flow',
-        kicker: 'Académicos · Web / Móvil',
-        summary: 'Contenido técnico en preparación.',
-        description: 'Contenido técnico en preparación.',
-        role: 'Espacio reservado para definir responsabilidades, alcance y contribución principal.',
-        technologies: [],
-        challenges: [],
-        detailText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.',
-        githubUrl: '',
-        canvaUrl: 'https://www.canva.com/design/DAFn-XijcCg/mYh64tW6MIeVIKa1S1dX3g/view?utm_content=DAFn-XijcCg&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hcb7dc74d24',
-        demoUrl: '',
-        videoUrl: '',
-        docsUrl: '',
-        image: 'assets/images/Green Flow.jpeg',
-        imageAlt: 'Vista previa del proyecto Green Flow'
-    },
-    'music-pro': {
-        title: 'Music Pro',
-        kicker: 'Académicos · Web / Móvil',
-        summary: 'Contenido técnico en preparación.',
-        description: 'Contenido técnico en preparación.',
-        role: 'Espacio reservado para definir responsabilidades, alcance y contribución principal.',
-        technologies: [],
-        challenges: [],
-        detailText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.',
-        githubUrl: '',
-        canvaUrl: 'https://www.canva.com/design/DAFetmBtC4o/8PYmGUM2hCcI0UMXib_8ng/view?utm_content=DAFetmBtC4o&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hdfedc591d9',
-        demoUrl: '',
-        videoUrl: '',
-        docsUrl: '',
-        image: 'assets/images/Music Pro-Logo.png',
-        imageAlt: 'Vista previa del proyecto Music Pro'
     }
 };
 
