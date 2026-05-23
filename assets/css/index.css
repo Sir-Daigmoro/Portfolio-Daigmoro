@@ -779,7 +779,7 @@ article { display: none; }
 
 .focus-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 14px;
     margin-top: 6px;
     width: 100%;
@@ -788,6 +788,9 @@ article { display: none; }
 .focus-card {
     display: block;
     position: relative;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     padding: 12px 18px;
     min-height: 98px;
     border-radius: 16px;
@@ -819,6 +822,7 @@ article { display: none; }
     margin-bottom: 5px;
     font-size: 0.97rem;
     line-height: 1.28;
+    overflow-wrap: anywhere;
 }
 
 .focus-card-text {
@@ -826,6 +830,7 @@ article { display: none; }
     font-size: 0.88rem;
     line-height: 1.42;
     margin: 0;
+    overflow-wrap: anywhere;
 }
 
 /*TESTIMONIALS*/
@@ -2158,6 +2163,112 @@ textarea.form-input {
     color: #ffb3ad;
 }
 
+@media (max-width: 579px) {
+    main {
+        margin: 12px 10px;
+        margin-bottom: 78px;
+    }
+
+    .sidebar,
+    article {
+        width: 100%;
+        max-width: 100%;
+        padding: 18px;
+    }
+
+    .sidebar {
+        max-height: 356px;
+        padding-top: 22px;
+    }
+
+    .sidebar.active {
+        max-height: 1380px;
+    }
+
+    .sidebar-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding-top: 8px;
+    }
+
+    .avatar-box {
+        width: min(210px, 100%);
+        height: auto;
+        aspect-ratio: 1 / 1;
+        margin-inline: auto;
+    }
+
+    .info-content {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .info-content .name {
+        font-size: clamp(1.95rem, 7vw, 2.35rem);
+        line-height: 1.08;
+        margin-bottom: 10px;
+    }
+
+    .info-content .title {
+        width: 100%;
+        max-width: 100%;
+        padding: 8px 12px;
+        font-size: 11px;
+    }
+
+    .info-more-btn {
+        top: -22px;
+        right: -18px;
+        padding: 10px 14px;
+        border-radius: 0 18px;
+    }
+
+    .info-more-btn span {
+        display: block;
+        font-size: 12px;
+    }
+
+    .info-more-btn ion-icon {
+        display: none;
+    }
+
+    .about .article-title {
+        margin-top: 0;
+    }
+
+    .focus-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .focus-card {
+        padding: 12px 14px;
+    }
+
+    .focus-card-title {
+        font-size: 0.95rem;
+    }
+
+    .focus-card-text {
+        font-size: 0.92rem;
+        line-height: 1.48;
+    }
+
+    .testimonials .content-card {
+        padding: 14px 16px 14px 72px;
+    }
+
+    .mapbox {
+        height: 190px;
+        margin-bottom: 22px;
+    }
+
+    .contact-form {
+        margin-bottom: 0;
+    }
+}
+
 
 /*MEDIA QUERIES*/
 
@@ -2360,6 +2471,132 @@ textarea.form-input {
     }
 
         .form-btn ion-icon { font-size: 18px; }
+}
+
+@media (max-width: 767px) {
+    main {
+        margin: 12px 10px;
+        margin-top: 12px;
+        margin-bottom: 78px;
+    }
+
+    .sidebar,
+    article {
+        width: 100%;
+        max-width: 100%;
+        margin-inline: 0;
+        padding: 18px;
+    }
+
+    .sidebar {
+        max-height: 356px;
+        margin-bottom: 18px;
+        padding-top: 22px;
+    }
+
+    .sidebar.active {
+        max-height: 1380px;
+    }
+
+    .sidebar-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding-top: 8px;
+    }
+
+    .avatar-box {
+        width: min(210px, 100%);
+        height: auto;
+        aspect-ratio: 1 / 1;
+        margin-inline: auto;
+    }
+
+    .info-content {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .info-content .name {
+        font-size: clamp(2rem, 6vw, 2.4rem);
+        line-height: 1.08;
+        margin-bottom: 10px;
+    }
+
+    .info-content .title {
+        width: 100%;
+        max-width: 100%;
+        padding: 8px 12px;
+        font-size: 11px;
+    }
+
+    .info-more-btn {
+        top: -22px;
+        right: -18px;
+        padding: 10px 14px;
+        border-radius: 0 18px;
+    }
+
+    .info-more-btn span {
+        display: block;
+        font-size: 12px;
+    }
+
+    .info-more-btn ion-icon {
+        display: none;
+    }
+
+    article {
+        padding-top: 24px;
+    }
+
+    .about .article-title {
+        margin-top: 0;
+    }
+
+    .contacts-list {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .contact-info {
+        max-width: calc(100% - 64px);
+        width: calc(100% - 64px);
+    }
+
+    .focus-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .focus-card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 12px 14px;
+    }
+
+    .focus-card-title {
+        font-size: 0.95rem;
+    }
+
+    .focus-card-text {
+        font-size: 0.92rem;
+        line-height: 1.48;
+    }
+
+    .testimonials .content-card {
+        padding: 14px 16px 14px 72px;
+    }
+
+    .mapbox {
+        height: 190px;
+        margin-bottom: 22px;
+    }
+
+    .contact-form {
+        margin-bottom: 0;
+    }
 }
 
 @media (min-width: 768px) {
