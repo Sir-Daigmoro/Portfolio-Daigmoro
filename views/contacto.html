@@ -1,0 +1,43 @@
+<article class="contact active" data-page="contact">
+    <header>
+        <h2 class="h2 article-title">Contacto</h2>
+        <p class="section-lead">Si tienes una oportunidad, proyecto o colaboración en mente, conversemos.</p>
+    </header>
+
+    <section class="mapbox" data-mapbox>
+        <figure>
+            <iframe
+                src="https://www.google.com/maps?q=Santiago%2C%20Chile&z=11&output=embed"
+                width="600"
+                height="450"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Santiago, Chile">
+            </iframe>
+        </figure>
+    </section>
+
+    <section class="contact-form">
+        <h3 class="h3 form-title section-accent-title">Contáctame</h3>
+
+        <form id="contact-form" data-form>
+            <div class="input-wrapper">
+                <input type="text" name="from_name" class="form-input" placeholder="Nombre completo" autocomplete="name" minlength="3" maxlength="80" aria-label="Nombre completo" data-form-input required>
+                <input type="email" name="from_email" class="form-input" placeholder="Correo electrónico" autocomplete="email" maxlength="120" aria-label="Correo electrónico" data-form-input required>
+            </div>
+
+            <input type="text" name="company" class="form-input honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <textarea name="message" class="form-input" placeholder="Cuéntame sobre tu proyecto o idea" minlength="10" maxlength="1200" aria-label="Mensaje" data-form-input required></textarea>
+
+            <button id="formBtn" class="form-btn" type="submit" data-form-btn disabled>
+                <ion-icon name="paper-plane"></ion-icon>
+                <span>Enviar mensaje</span>
+            </button>
+
+            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+        </form>
+    </section>
+</article>
