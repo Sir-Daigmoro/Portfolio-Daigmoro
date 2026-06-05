@@ -26,6 +26,20 @@ const viewMap = {
     contact: 'views/contacto.html'
 };
 
+// Bump this value when modular views or project content files change.
+const APP_ASSET_VERSION = '20260523-2';
+
+const EMAILJS_CONFIG = {
+    publicKey: '3qa5UytXx0PVYVQ2E',
+    serviceId: 'service_lwd21lg',
+    templateId: 'template_3dc1f3v'
+};
+
+const withAssetVersion = (path) => {
+    const separator = path.includes('?') ? '&' : '?';
+    return `${path}${separator}v=${APP_ASSET_VERSION}`;
+};
+
 const projectContentCache = new Map();
 const projectDetailFallback = 'Contenido técnico detallado en preparación.';
 
@@ -231,6 +245,7 @@ const renderInlineFormatting = (text) => {
     });
 
     output = output.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    output = output.replace(/`([^`]+)`/g, '<code>$1</code>');
 
     return output;
 };
@@ -241,12 +256,69 @@ const renderCodeBlock = (lines, language = '') => {
     return `<pre><code${languageClass}>${escapeHtml(code)}</code></pre>`;
 };
 
+const isConceptDiagramLine = (line) => {
+    const value = String(line || '');
+    const trimmed = value.trim();
+
+    if (!trimmed) {
+        return false;
+    }
+
+    if (/[\u2500-\u257F\u2190-\u21FF\u25BC\u25B2\u25C0\u25B6]/.test(value)) {
+        return true;
+    }
+
+    if (/^(?:\s{8,}|\t+).*(?:\||->|<-|=>|<=|::)/.test(value)) {
+        return true;
+    }
+
+    if (/^(?:\s{8,}|\t+).*(?:[+][-=]+[+]|[|].*[|])/.test(value)) {
+        return true;
+    }
+
+    return false;
+};
+
+const parseMarkdownTableRow = (line) => {
+    const trimmed = String(line || '').trim().replace(/^\|/, '').replace(/\|$/, '');
+    return trimmed.split('|').map((cell) => cell.trim());
+};
+
+const isMarkdownTableSeparator = (line) => {
+    const cells = parseMarkdownTableRow(line);
+
+    return cells.length > 0 && cells.every((cell) => /^:?-{3,}:?$/.test(cell));
+};
+
+const renderMarkdownTable = (headers, rows) => {
+    const headMarkup = headers
+        .map((cell) => `<th>${renderInlineFormatting(cell)}</th>`)
+        .join('');
+
+    const bodyMarkup = rows
+        .map((row) => {
+            const cells = row.map((cell) => `<td>${renderInlineFormatting(cell)}</td>`).join('');
+            return `<tr>${cells}</tr>`;
+        })
+        .join('');
+
+    return `
+        <div class="project-document-table-wrap">
+            <table class="project-document-table">
+                <thead><tr>${headMarkup}</tr></thead>
+                <tbody>${bodyMarkup}</tbody>
+            </table>
+        </div>
+    `;
+};
+
 const renderStructuredText = (text) => {
     const normalized = String(text || '').replace(/\r\n/g, '\n');
     const lines = normalized.split('\n');
     const parts = [];
     let paragraph = [];
     let listItems = [];
+    let listType = '';
     let codeLines = [];
     let codeLanguage = '';
     let isCodeBlock = false;
@@ -265,8 +337,10 @@ const renderStructuredText = (text) => {
             return;
         }
 
-        parts.push(`<ul>${listItems.map((item) => `<li>${renderInlineFormatting(item)}</li>`).join('')}</ul>`);
+        const tag = listType === 'ordered' ? 'ol' : 'ul';
+        parts.push(`<${tag}>${listItems.map((item) => `<li>${renderInlineFormatting(item)}</li>`).join('')}</${tag}>`);
         listItems = [];
+        listType = '';
     };
 
     const flushCodeBlock = () => {
@@ -280,7 +354,8 @@ const renderStructuredText = (text) => {
         isCodeBlock = false;
     };
 
-    lines.forEach((line) => {
+    for (let index = 0; index < lines.length; index += 1) {
+        const line = lines[index];
         const trimmed = line.trim();
         const codeFenceMatch = line.match(/^\s*```([\w-]+)?\s*$/);
 
@@ -294,18 +369,18 @@ const renderStructuredText = (text) => {
                 codeLanguage = (codeFenceMatch[1] || '').trim();
             }
 
-            return;
+            continue;
         }
 
         if (isCodeBlock) {
             codeLines.push(line);
-            return;
+            continue;
         }
 
         if (!trimmed) {
             flushParagraph();
             flushList();
-            return;
+            continue;
         }
 
         const headingMatch = trimmed.match(/^(#{1,3})\s+(.*)$/);
@@ -315,20 +390,107 @@ const renderStructuredText = (text) => {
             flushList();
             const level = headingMatch[1].length;
             parts.push(`<h${level}>${renderInlineFormatting(headingMatch[2])}</h${level}>`);
-            return;
+            continue;
         }
 
-        const listMatch = trimmed.match(/^-\s+(.*)$/);
-
-        if (listMatch) {
+        if (isConceptDiagramLine(line)) {
             flushParagraph();
-            listItems.push(listMatch[1]);
-            return;
+            flushList();
+
+            const diagramLines = [line];
+            index += 1;
+
+            while (index < lines.length) {
+                const nextLine = lines[index];
+
+                if (!nextLine.trim()) {
+                    diagramLines.push(nextLine);
+                    index += 1;
+                    continue;
+                }
+
+                if (!isConceptDiagramLine(nextLine)) {
+                    index -= 1;
+                    break;
+                }
+
+                diagramLines.push(nextLine);
+                index += 1;
+            }
+
+            if (index >= lines.length) {
+                index -= 1;
+            }
+
+            parts.push(renderCodeBlock(diagramLines, 'text'));
+            continue;
+        }
+
+        if (/^---+$/.test(trimmed)) {
+            flushParagraph();
+            flushList();
+            parts.push('<hr>');
+            continue;
+        }
+
+        if (trimmed.includes('|') && index + 1 < lines.length && isMarkdownTableSeparator(lines[index + 1])) {
+            flushParagraph();
+            flushList();
+
+            const headers = parseMarkdownTableRow(line);
+            const rows = [];
+            index += 2;
+
+            while (index < lines.length) {
+                const rowLine = lines[index];
+                const rowTrimmed = rowLine.trim();
+
+                if (!rowTrimmed || !rowTrimmed.includes('|')) {
+                    index -= 1;
+                    break;
+                }
+
+                rows.push(parseMarkdownTableRow(rowLine));
+                index += 1;
+            }
+
+            if (index >= lines.length) {
+                index -= 1;
+            }
+
+            parts.push(renderMarkdownTable(headers, rows));
+            continue;
+        }
+
+        const unorderedListMatch = trimmed.match(/^[-*+]\s+(.*)$/);
+
+        if (unorderedListMatch) {
+            flushParagraph();
+            if (listType && listType !== 'unordered') {
+                flushList();
+            }
+
+            listType = 'unordered';
+            listItems.push(unorderedListMatch[1]);
+            continue;
+        }
+
+        const orderedListMatch = trimmed.match(/^\d+\.\s+(.*)$/);
+
+        if (orderedListMatch) {
+            flushParagraph();
+            if (listType && listType !== 'ordered') {
+                flushList();
+            }
+
+            listType = 'ordered';
+            listItems.push(orderedListMatch[1]);
+            continue;
         }
 
         flushList();
         paragraph.push(trimmed);
-    });
+    }
 
     flushParagraph();
     flushList();
@@ -368,7 +530,7 @@ const loadProjectDetailContent = async (project) => {
 
     for (const candidate of candidates) {
         try {
-            const response = await fetch(candidate.path, { cache: 'no-cache' });
+            const response = await fetch(withAssetVersion(candidate.path), { cache: 'no-cache' });
 
             if (!response.ok) {
                 continue;
@@ -413,7 +575,7 @@ const fetchViewMarkup = async (target) => {
         throw new Error(`No view mapped for "${target}"`);
     }
 
-    const response = await fetch(viewPath, { cache: 'no-cache' });
+    const response = await fetch(withAssetVersion(viewPath), { cache: 'no-cache' });
 
     if (!response.ok) {
         throw new Error(`Failed to load ${viewPath}`);
@@ -933,7 +1095,9 @@ const initProjectsView = () => {
 
 const initContactView = () => {
     if (window.emailjs && !window.__portfolioEmailInit) {
-        window.emailjs.init('3qa5UytXx0PVYVQ2E');
+        window.emailjs.init({
+            publicKey: EMAILJS_CONFIG.publicKey
+        });
         window.__portfolioEmailInit = true;
     }
 
@@ -943,6 +1107,7 @@ const initContactView = () => {
     const formStatus = viewContainer.querySelector('[data-form-status]');
     const contactForm = viewContainer.querySelector('#contact-form');
     const contactBtn = viewContainer.querySelector('#formBtn');
+    const emailInput = viewContainer.querySelector('input[name="from_email"]');
     const defaultButtonMarkup =
         '<ion-icon name="paper-plane"></ion-icon><span>Enviar mensaje</span>';
 
@@ -995,10 +1160,19 @@ const initContactView = () => {
         setFormStatus('Enviando tu mensaje...', '');
 
         try {
+            const replyToInput = contactForm.querySelector('input[name="reply_to"]');
+
+            if (replyToInput && emailInput) {
+                replyToInput.value = emailInput.value.trim();
+            }
+
             await window.emailjs.sendForm(
-                'service_lwd21lg',
-                'template_3dc1f3v',
-                contactForm
+                EMAILJS_CONFIG.serviceId,
+                EMAILJS_CONFIG.templateId,
+                contactForm,
+                {
+                    publicKey: EMAILJS_CONFIG.publicKey
+                }
             );
 
             contactForm.reset();
@@ -1009,7 +1183,12 @@ const initContactView = () => {
             );
             updateFormState();
         } catch (error) {
-            console.error('Error al enviar el mensaje:', error);
+            console.error('Error al enviar el mensaje:', {
+                status: error?.status,
+                text: error?.text,
+                message: error?.message,
+                error
+            });
             contactBtn.disabled = false;
             contactBtn.innerHTML = defaultButtonMarkup;
             setFormStatus(
