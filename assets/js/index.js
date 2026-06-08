@@ -59,6 +59,8 @@ const projectCatalog = {
         videoUrl: '',
         docsUrl: '',
         contentPath: 'assets/content/projects/ocr-cloud',
+        image: 'assets/images/Plataforma Browne Data Extractor Google Cloud Platform y Document AI.png',
+        imageAlt: 'Vista previa del proyecto Plataforma Browne Data Extractor',
         placeholderClass: 'project-placeholder--cloud',
         placeholderIcon: 'cloud-outline',
         placeholderLabel: 'Browne Extractor'
@@ -1110,7 +1112,6 @@ const initContactView = () => {
     const emailInput = viewContainer.querySelector('input[name="from_email"]');
     const reasonSelect = viewContainer.querySelector('select[name="contact_reason"]');
     const messageInput = viewContainer.querySelector('textarea[name="message"]');
-    const attachmentInput = viewContainer.querySelector('input[name="testimonial_image"]');
     const defaultButtonMarkup =
         '<ion-icon name="paper-plane"></ion-icon><span>Enviar mensaje</span>';
 
@@ -1148,38 +1149,11 @@ const initContactView = () => {
         messageInput.placeholder = 'Cuentame sobre tu proyecto o idea';
     };
 
-    const validateAttachment = () => {
-        if (!attachmentInput) {
-            return true;
-        }
-
-        const [file] = attachmentInput.files || [];
-
-        if (!file) {
-            attachmentInput.setCustomValidity('');
-            return true;
-        }
-
-        if (file.type && !file.type.startsWith('image/')) {
-            attachmentInput.setCustomValidity('Adjunta una imagen en formato JPG, PNG o WEBP.');
-            return false;
-        }
-
-        attachmentInput.setCustomValidity('');
-        return true;
-    };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!contactForm.checkValidity()) {
             contactForm.reportValidity();
-            updateFormState();
-            return;
-        }
-
-        if (!validateAttachment()) {
-            attachmentInput?.reportValidity();
             updateFormState();
             return;
         }
@@ -1248,11 +1222,6 @@ const initContactView = () => {
 
     reasonSelect?.addEventListener('change', () => {
         updateMessagePlaceholder();
-        updateFormState();
-    });
-
-    attachmentInput?.addEventListener('change', () => {
-        validateAttachment();
         updateFormState();
     });
 
