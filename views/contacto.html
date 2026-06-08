@@ -6,11 +6,32 @@
     </header>
 
     <section class="contact-form">
-        <form id="contact-form" data-form>
+        <form id="contact-form" data-form enctype="multipart/form-data">
             <div class="input-wrapper">
                 <input type="text" name="from_name" class="form-input" placeholder="Nombre completo" autocomplete="name" minlength="3" maxlength="80" aria-label="Nombre completo" data-form-input required>
                 <input type="email" name="from_email" class="form-input" placeholder="Correo electronico" autocomplete="email" maxlength="120" aria-label="Correo electronico" data-form-input required>
             </div>
+
+            <div class="input-wrapper input-wrapper--meta">
+                <label class="form-field">
+                    <span class="form-field-label">Motivo del mensaje</span>
+                    <select name="contact_reason" class="form-input form-select" aria-label="Motivo del mensaje" data-form-input required>
+                        <option value="" selected disabled>Selecciona un motivo</option>
+                        <option value="Quiero compartir un testimonio">Quiero compartir un testimonio</option>
+                        <option value="Te contacto por informacion">Te contacto por informacion</option>
+                        <option value="Oportunidad laboral">Oportunidad laboral</option>
+                        <option value="Colaboracion o proyecto">Colaboracion o proyecto</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </label>
+
+                <label class="form-field">
+                    <span class="form-field-label">Imagen adjunta</span>
+                    <input type="file" name="testimonial_image" class="form-input form-input-file" accept=".png,.jpg,.jpeg,.webp" aria-label="Imagen adjunta para testimonio">
+                </label>
+            </div>
+
+            <p class="form-help">Si deseas compartir un testimonio, puedes adjuntar una imagen en formato JPG, PNG o WEBP para incorporarla despues al portafolio.</p>
 
             <input type="text" name="company" class="form-input honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
             <input type="hidden" name="reply_to" value="">

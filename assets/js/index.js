@@ -27,7 +27,7 @@ const viewMap = {
 };
 
 // Bump this value when modular views or project content files change.
-const APP_ASSET_VERSION = '20260523-2';
+const APP_ASSET_VERSION = '20260608-1';
 
 const EMAILJS_CONFIG = {
     publicKey: '3qa5UytXx0PVYVQ2E',
@@ -45,23 +45,23 @@ const projectDetailFallback = 'Contenido técnico detallado en preparación.';
 
 const projectCatalog = {
     'ocr-cloud': {
-        title: 'Plataforma OCR Document IA',
+        title: 'Plataforma Browne Data Extractor',
         kicker: 'Profesionales · Cloud / Backend',
-        summary: 'Contenido técnico en preparación.',
-        description: 'Contenido técnico en preparación.',
+        summary: 'Plataforma orientada a automatizacion documental mediante Google Cloud Platform, Document AI y servicios backend.',
+        description: 'Plataforma orientada a automatizacion documental mediante Google Cloud Platform, Document AI y servicios backend.',
         role: 'Espacio reservado para definir responsabilidades, alcance y contribución principal.',
         technologies: [],
         challenges: [],
         detailText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.',
         githubUrl: '',
-        canvaUrl: '',
+        canvaUrl: 'https://canva.link/hu3yolifqdj15b5',
         demoUrl: '',
         videoUrl: '',
         docsUrl: '',
         contentPath: 'assets/content/projects/ocr-cloud',
         placeholderClass: 'project-placeholder--cloud',
         placeholderIcon: 'cloud-outline',
-        placeholderLabel: 'OCR Cloud'
+        placeholderLabel: 'Browne Extractor'
     },
     'erp-cloud': {
         title: 'Integración sistema ERP + Servicios GCP',
@@ -1108,6 +1108,9 @@ const initContactView = () => {
     const contactForm = viewContainer.querySelector('#contact-form');
     const contactBtn = viewContainer.querySelector('#formBtn');
     const emailInput = viewContainer.querySelector('input[name="from_email"]');
+    const reasonSelect = viewContainer.querySelector('select[name="contact_reason"]');
+    const messageInput = viewContainer.querySelector('textarea[name="message"]');
+    const attachmentInput = viewContainer.querySelector('input[name="testimonial_image"]');
     const defaultButtonMarkup =
         '<ion-icon name="paper-plane"></ion-icon><span>Enviar mensaje</span>';
 
@@ -1132,11 +1135,51 @@ const initContactView = () => {
         formBtn.disabled = !form.checkValidity();
     };
 
+    const updateMessagePlaceholder = () => {
+        if (!messageInput) {
+            return;
+        }
+
+        if (reasonSelect?.value === 'Quiero compartir un testimonio') {
+            messageInput.placeholder = 'Comparte tu testimonio, contexto o experiencia trabajando conmigo';
+            return;
+        }
+
+        messageInput.placeholder = 'Cuentame sobre tu proyecto o idea';
+    };
+
+    const validateAttachment = () => {
+        if (!attachmentInput) {
+            return true;
+        }
+
+        const [file] = attachmentInput.files || [];
+
+        if (!file) {
+            attachmentInput.setCustomValidity('');
+            return true;
+        }
+
+        if (file.type && !file.type.startsWith('image/')) {
+            attachmentInput.setCustomValidity('Adjunta una imagen en formato JPG, PNG o WEBP.');
+            return false;
+        }
+
+        attachmentInput.setCustomValidity('');
+        return true;
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!contactForm.checkValidity()) {
             contactForm.reportValidity();
+            updateFormState();
+            return;
+        }
+
+        if (!validateAttachment()) {
+            attachmentInput?.reportValidity();
             updateFormState();
             return;
         }
@@ -1181,6 +1224,7 @@ const initContactView = () => {
                 'Mensaje enviado correctamente. Gracias por tu interés; te responderé pronto.',
                 'is-success'
             );
+            updateMessagePlaceholder();
             updateFormState();
         } catch (error) {
             console.error('Error al enviar el mensaje:', {
@@ -1202,7 +1246,18 @@ const initContactView = () => {
         input.addEventListener('input', updateFormState);
     });
 
+    reasonSelect?.addEventListener('change', () => {
+        updateMessagePlaceholder();
+        updateFormState();
+    });
+
+    attachmentInput?.addEventListener('change', () => {
+        validateAttachment();
+        updateFormState();
+    });
+
     contactForm.addEventListener('submit', handleSubmit);
+    updateMessagePlaceholder();
     updateFormState();
 
     return () => {
