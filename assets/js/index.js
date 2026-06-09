@@ -27,7 +27,7 @@ const viewMap = {
 };
 
 // Bump this value when modular views or project content files change.
-const APP_ASSET_VERSION = '20260608-1';
+const APP_ASSET_VERSION = '20260609-1';
 
 const EMAILJS_CONFIG = {
     publicKey: '3qa5UytXx0PVYVQ2E',
@@ -130,7 +130,7 @@ const projectCatalog = {
         challenges: [],
         detailText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.',
         githubUrl: '',
-        canvaUrl: '',
+        canvaUrl: 'https://canva.link/nwgbaz68gob9jwt',
         demoUrl: '',
         videoUrl: '',
         docsUrl: '',
