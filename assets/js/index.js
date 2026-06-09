@@ -114,7 +114,7 @@ const projectCatalog = {
         videoUrl: '',
         docsUrl: '',
         contentPath: 'assets/content/projects/bot-teams-gemini',
-        image: 'assets/images/Chat bot Corporativo.png',
+        image: 'assets/images/Chat bot Empresarial con IA Generativa.png',
         imageAlt: 'Vista previa del proyecto Bot Corporativo con Gemini y Teams',
         placeholderClass: 'project-placeholder--bot',
         placeholderIcon: 'chatbubbles-outline',
@@ -135,6 +135,8 @@ const projectCatalog = {
         videoUrl: '',
         docsUrl: '',
         contentPath: 'assets/content/projects/battlev2',
+        image: 'assets/images/Sistema de combate ATB por turnos - movimiento táctico.jpg',
+        imageAlt: 'Vista previa del proyecto Sistema de Combate ATB para videojuegos RPG - Sistema de Movimiento Tactico',
         placeholderClass: 'project-placeholder--combat',
         placeholderIcon: 'shield-half-outline',
         placeholderLabel: 'Tactical Systems'
