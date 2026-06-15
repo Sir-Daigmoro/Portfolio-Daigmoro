@@ -27,7 +27,7 @@ const viewMap = {
 };
 
 // Bump this value when modular views or project content files change.
-const APP_ASSET_VERSION = '20260609-1';
+const APP_ASSET_VERSION = '20260615-1';
 
 const EMAILJS_CONFIG = {
     publicKey: '3qa5UytXx0PVYVQ2E',
